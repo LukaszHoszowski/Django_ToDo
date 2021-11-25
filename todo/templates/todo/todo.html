@@ -21,8 +21,13 @@
     <ul>
         {% for task in task_list %}
              <li>
-                    {{ task }}
-                    <a href="{% url 'todo:delete' task.pk %}">Delete task{{ task }}</a>
+                 {{ task }}
+                 <br>
+                 <a href="{% url 'todo:delete' task.pk %}">Delete task</a>
+                 <form action="{% url 'todo:done' task.pk %}" method="post">
+                     {% csrf_token %}
+                     <button type="submit">Task done</button>
+                 </form>
              </li>
         {% endfor %}
     </ul>

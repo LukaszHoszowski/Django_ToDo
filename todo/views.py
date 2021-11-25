@@ -7,7 +7,7 @@ from todo.models import Task
 
 class TaskView(CreateView):
     model = Task
-    fields = '__all__'
+    fields = ['details', 'owner']
     template_name = 'todo/todo.html'
     success_url = reverse_lazy('todo:todo')
 
@@ -21,5 +21,13 @@ class DeleteTaskView(View):
     def get(self, request, pk):
         task = Task.objects.get(pk=pk)
         task.archive = True
+        task.save()
+        return HttpResponseRedirect(reverse('todo:todo'))
+
+
+class DoneTaskView(View):
+    def post(self, request, pk):
+        task = Task.objects.get(pk=pk)
+        task.is_done = True
         task.save()
         return HttpResponseRedirect(reverse('todo:todo'))
