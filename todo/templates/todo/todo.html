@@ -16,6 +16,23 @@
         <input type="submit" value="save">
     </form>
 
+    <br>
+
+    <form action="{% url 'todo:filter' 'all' %}" method="post">
+        {% csrf_token %}
+        <button>show all</button>
+    </form>
+
+    <form action="{% url 'todo:filter' 'done' %}" method="post">
+        {% csrf_token %}
+        <button>show done</button>
+    </form>
+
+    <form action="{% url 'todo:filter' 'ongoing' %}" method="post">
+        {% csrf_token %}
+        <button>show ongoing</button>
+    </form>
+
     <h2>Ongoing tasks</h2>
 
     <ul>

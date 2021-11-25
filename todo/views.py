@@ -12,8 +12,14 @@ class TaskView(CreateView):
     success_url = reverse_lazy('todo:todo')
 
     def get_context_data(self, **kwargs):
+        filter_ = self.kwargs.get('filter', None)
         context = super().get_context_data(**kwargs)
-        context['task_list'] = Task.objects.filter(is_done=False, archive=False)
+        if filter_ is None or filter == 'ongoing':
+            context['task_list'] = Task.objects.filter(is_done=False, archive=False)
+        elif filter_ == 'all':
+            context['task_list'] = Task.objects.filter(archive=False)
+        elif filter_ == 'done':
+            context['task_list'] = Task.objects.filter(is_done=True, archive=False)
         return context
 
 
