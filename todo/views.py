@@ -1,3 +1,10 @@
-from django.shortcuts import render
+from django.urls import reverse_lazy
+from django.views.generic import CreateView
+from todo.models import Task
 
-# Create your views here.
+
+class TaskView(CreateView):
+    model = Task
+    fields = '__all__'
+    template_name = 'todo/todo.html'
+    # success_url = reverse_lazy('todo:')
